@@ -10,7 +10,7 @@ namespace CitasApp.Repositories
 
         public JsonCitaRepository(IWebHostEnvironment env)
         {
-            _filePath = Path.Combine(env.ContentRootPath, "Data", "citas.json");
+            _filePath = Path.Combine(env.ContentRootPath, "Data", "Citas.json");
         }
 
         public IEnumerable<Cita> ObtenerTodos()
@@ -21,28 +21,10 @@ namespace CitasApp.Repositories
                     return Enumerable.Empty<Cita>();
 
                 var json = File.ReadAllText(_filePath);
-                using (JsonDocument doc = JsonDocument.Parse(json))
-                {
-                    var citas = new List<Cita>();
-                    var citasArray = doc.RootElement.GetProperty("citas");
+                var citas = JsonSerializer.Deserialize<List<Cita>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
+                    ?? new List<Cita>();
 
-                    foreach (var citaElement in citasArray.EnumerateArray())
-                    {
-                        var cita = new Cita
-                        {
-                            Id = citaElement.GetProperty("id").GetInt32(),
-                            PacienteId = citaElement.GetProperty("pacienteId").GetInt32(),
-                            MedicoId = citaElement.GetProperty("medicoId").GetInt32(),
-                            Fecha = DateOnly.Parse(citaElement.GetProperty("fecha").GetString() ?? ""),
-                            Hora = TimeOnly.Parse(citaElement.GetProperty("hora").GetString() ?? ""),
-                            Motivo = citaElement.GetProperty("motivo").GetString() ?? string.Empty,
-                            Estado = citaElement.GetProperty("estado").GetString() ?? "Pendiente"
-                        };
-                        citas.Add(cita);
-                    }
-
-                    return citas;
-                }
+                return citas;
             }
             catch
             {

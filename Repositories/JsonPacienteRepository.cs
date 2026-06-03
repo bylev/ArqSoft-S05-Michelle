@@ -10,7 +10,7 @@ namespace CitasApp.Repositories
 
         public JsonPacienteRepository(IWebHostEnvironment env)
         {
-            _filePath = Path.Combine(env.ContentRootPath, "Data", "citas.json");
+            _filePath = Path.Combine(env.ContentRootPath, "Data", "Pacientes.json");
         }
 
         public IEnumerable<Paciente> ObtenerTodos()
@@ -21,26 +21,10 @@ namespace CitasApp.Repositories
                     return Enumerable.Empty<Paciente>();
 
                 var json = File.ReadAllText(_filePath);
-                using (JsonDocument doc = JsonDocument.Parse(json))
-                {
-                    var pacientes = new List<Paciente>();
-                    var pacientesArray = doc.RootElement.GetProperty("pacientes");
+                var pacientes = JsonSerializer.Deserialize<List<Paciente>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
+                    ?? new List<Paciente>();
 
-                    foreach (var pacienteElement in pacientesArray.EnumerateArray())
-                    {
-                        var paciente = new Paciente
-                        {
-                            Id = pacienteElement.GetProperty("id").GetInt32(),
-                            Nombre = pacienteElement.GetProperty("nombre").GetString() ?? string.Empty,
-                            Apellido = pacienteElement.GetProperty("apellido").GetString() ?? string.Empty,
-                            Email = pacienteElement.GetProperty("email").GetString() ?? string.Empty,
-                            Telegono = pacienteElement.GetProperty("telegono").GetString() ?? string.Empty
-                        };
-                        pacientes.Add(paciente);
-                    }
-
-                    return pacientes;
-                }
+                return pacientes;
             }
             catch
             {

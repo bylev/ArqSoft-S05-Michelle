@@ -26,7 +26,7 @@
                     <td>@paciente.Nombre</td>
                     <td>@paciente.Apellido</td>
                     <td>@paciente.Email</td>
-                    <td>@paciente.Telegono</td>
+                    <td>@paciente.Telefono</td>
                     <td>
                         <a href="@Url.Action("Detalle", "Paciente", new { id = paciente.Id })" class="btn btn-sm btn-info">Ver Detalle</a>
                         <a href="@Url.Action("PorPaciente", "Cita", new { pacienteId = paciente.Id })" class="btn btn-sm btn-warning">Mis Citas</a>

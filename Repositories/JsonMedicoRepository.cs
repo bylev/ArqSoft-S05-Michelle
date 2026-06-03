@@ -10,7 +10,7 @@ namespace CitasApp.Repositories
 
         public JsonMedicoRepository(IWebHostEnvironment env)
         {
-            _filePath = Path.Combine(env.ContentRootPath, "Data", "citas.json");
+            _filePath = Path.Combine(env.ContentRootPath, "Data", "Medicos.json");
         }
 
         public IEnumerable<Medico> ObtenerTodos()
@@ -21,26 +21,10 @@ namespace CitasApp.Repositories
                     return Enumerable.Empty<Medico>();
 
                 var json = File.ReadAllText(_filePath);
-                using (JsonDocument doc = JsonDocument.Parse(json))
-                {
-                    var medicos = new List<Medico>();
-                    var medicosArray = doc.RootElement.GetProperty("medicos");
+                var medicos = JsonSerializer.Deserialize<List<Medico>>(json, new JsonSerializerOptions { PropertyNameCaseInsensitive = true })
+                    ?? new List<Medico>();
 
-                    foreach (var medicoElement in medicosArray.EnumerateArray())
-                    {
-                        var medico = new Medico
-                        {
-                            Id = medicoElement.GetProperty("id").GetInt32(),
-                            Nombre = medicoElement.GetProperty("nombre").GetString() ?? string.Empty,
-                            Apellido = medicoElement.GetProperty("apellido").GetString() ?? string.Empty,
-                            Especialidad = medicoElement.GetProperty("especialidad").GetString() ?? string.Empty,
-                            NumeroLicencia = medicoElement.GetProperty("numeroLicencia").GetInt32()
-                        };
-                        medicos.Add(medico);
-                    }
-
-                    return medicos;
-                }
+                return medicos;
             }
             catch
             {
