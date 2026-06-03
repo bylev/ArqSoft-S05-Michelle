@@ -1,0 +1,38 @@
+@model IEnumerable<CitasApp.Models.Paciente>
+
+@{
+    ViewData["Title"] = "Pacientes";
+}
+
+<div class="container mt-5">
+    <h1 class="mb-4">Listado de Pacientes</h1>
+
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Teléfono</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var paciente in Model)
+            {
+                <tr>
+                    <td>@paciente.Id</td>
+                    <td>@paciente.Nombre</td>
+                    <td>@paciente.Apellido</td>
+                    <td>@paciente.Email</td>
+                    <td>@paciente.Telegono</td>
+                    <td>
+                        <a href="@Url.Action("Detalle", "Paciente", new { id = paciente.Id })" class="btn btn-sm btn-info">Ver Detalle</a>
+                        <a href="@Url.Action("PorPaciente", "Cita", new { pacienteId = paciente.Id })" class="btn btn-sm btn-warning">Mis Citas</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
