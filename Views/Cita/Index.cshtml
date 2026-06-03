@@ -5,7 +5,10 @@
 }
 
 <div class="container mt-5">
-    <h1 class="mb-4">Listado de Citas</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Listado de Citas</h1>
+        <a href="@Url.Action("Create", "Cita")" class="btn btn-success">+ Agregar Cita</a>
+    </div>
 
     <table class="table table-striped">
         <thead class="table-dark">
@@ -17,6 +20,7 @@
                 <th>Hora</th>
                 <th>Motivo</th>
                 <th>Estado</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -36,6 +40,13 @@
                         <span class="badge @(cita.Estado == "Confirmada" ? "bg-success" : cita.Estado == "Cancelada" ? "bg-danger" : "bg-warning")">
                             @cita.Estado
                         </span>
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Cita", new { id = cita.Id })" class="btn btn-sm btn-warning">Editar</a>
+                        <form method="post" action="@Url.Action("Delete", "Cita")" style="display:inline;">
+                            <input type="hidden" name="id" value="@cita.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Está seguro?')">Eliminar</button>
+                        </form>
                     </td>
                 </tr>
             }

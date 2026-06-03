@@ -37,5 +37,68 @@ namespace CitasApp.Repositories
             var pacientes = ObtenerTodos();
             return pacientes.FirstOrDefault(p => p.Id == id) ?? new Paciente();
         }
+
+        public void Agregar(Paciente paciente)
+        {
+            try
+            {
+                var pacientes = ObtenerTodos().ToList();
+                paciente.Id = pacientes.Count > 0 ? pacientes.Max(p => p.Id) + 1 : 1;
+                pacientes.Add(paciente);
+
+                var options = new JsonSerializerOptions { WriteIndented = true, PropertyNameCaseInsensitive = true };
+                var json = JsonSerializer.Serialize(pacientes, options);
+                File.WriteAllText(_filePath, json);
+            }
+            catch
+            {
+                // Manejo de error silencioso
+            }
+        }
+
+        public void Editar(Paciente paciente)
+        {
+            try
+            {
+                var pacientes = ObtenerTodos().ToList();
+                var pacienteExistente = pacientes.FirstOrDefault(p => p.Id == paciente.Id);
+                if (pacienteExistente != null)
+                {
+                    pacienteExistente.Nombre = paciente.Nombre;
+                    pacienteExistente.Apellido = paciente.Apellido;
+                    pacienteExistente.Email = paciente.Email;
+                    pacienteExistente.Telefono = paciente.Telefono;
+
+                    var options = new JsonSerializerOptions { WriteIndented = true, PropertyNameCaseInsensitive = true };
+                    var json = JsonSerializer.Serialize(pacientes, options);
+                    File.WriteAllText(_filePath, json);
+                }
+            }
+            catch
+            {
+                // Manejo de error silencioso
+            }
+        }
+
+        public void Eliminar(int id)
+        {
+            try
+            {
+                var pacientes = ObtenerTodos().ToList();
+                var paciente = pacientes.FirstOrDefault(p => p.Id == id);
+                if (paciente != null)
+                {
+                    pacientes.Remove(paciente);
+
+                    var options = new JsonSerializerOptions { WriteIndented = true, PropertyNameCaseInsensitive = true };
+                    var json = JsonSerializer.Serialize(pacientes, options);
+                    File.WriteAllText(_filePath, json);
+                }
+            }
+            catch
+            {
+                // Manejo de error silencioso
+            }
+        }
     }
 }

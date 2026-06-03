@@ -1,4 +1,5 @@
 ﻿using CitasApp.Interfaces;
+using CitasApp.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CitasApp.Controllers
@@ -14,6 +15,45 @@ namespace CitasApp.Controllers
         {
             var paciente = _repo.ObtenerPorId(id);
             return paciente == null ? NotFound() : View(paciente);
+        }
+
+        public IActionResult Create() => View();
+
+        [HttpPost]
+        public IActionResult Create(Paciente paciente)
+        {
+            if (ModelState.IsValid)
+            {
+                _repo.Agregar(paciente);
+                return RedirectToAction("Index");
+            }
+            return View(paciente);
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var paciente = _repo.ObtenerPorId(id);
+            if (paciente.Id == 0)
+                return NotFound();
+            return View(paciente);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Paciente paciente)
+        {
+            if (ModelState.IsValid)
+            {
+                _repo.Editar(paciente);
+                return RedirectToAction("Index");
+            }
+            return View(paciente);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            _repo.Eliminar(id);
+            return RedirectToAction("Index");
         }
     }
 }

@@ -6,5 +6,8 @@ namespace CitasApp.Interfaces
     {
         IEnumerable<Paciente> ObtenerTodos();
         Paciente ObtenerPorId(int id);
+        void Agregar(Paciente paciente);
+        void Editar(Paciente paciente);
+        void Eliminar(int id);
     }
 }
