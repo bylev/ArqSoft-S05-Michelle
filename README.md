@@ -7,6 +7,13 @@ pacientes, médicos y citas desde una interfaz clara y organizada.
 
 El objetivo de esta actividad es comprender las vistas arquitectónicas y los trade-offs mediante la creación de la aplicación.
 
+## Tecnologías Usadas
+ - ASP.Net Core MVC
+ - CSS Personalizado
+ - Archivos JSON como almacenamiento de datos
+ - Razor para las vistas
+ - Bootstrap para el diseño responsivo
+ 
 ## Estructura del proyecto
   ```text
   CitasApp/
