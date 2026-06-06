@@ -78,7 +78,7 @@ El objetivo de esta actividad es comprender las vistas arquitectónicas y los tr
   Permite listar, crear, editar y eliminar pacientes. Cada paciente tiene un nombre, edad y número de contacto.
 
   ### Médicos
-  Permite listar, crear, editar y eliminar médicos. Cada médico tiene un nombre, especialidad y número de contacto.
+  Permite listar, crear, editar y eliminar médicos. Cada médico tiene un nombre, especialidad y número de licencia.
 
   ## Almacenamiento de datos
   Actualmente, la aplicación utiliza archivos JSON dentro de la carpeta Data para almacenar la información de citas, pacientes y médicos. Esto facilita la gestión de datos sin necesidad de configurar una base de datos.
