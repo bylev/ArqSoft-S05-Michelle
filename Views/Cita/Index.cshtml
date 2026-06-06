@@ -5,49 +5,83 @@
 }
 
 <div class="container mt-5">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Listado de Citas</h1>
-        <a href="@Url.Action("Create", "Cita")" class="btn btn-success">+ Agregar Cita</a>
+    <div class="header-section">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <i class="fas fa-calendar-check fa-2x mb-2" style="color: #667eea;"></i>
+                <h1 class="mb-0">Gestión de Citas</h1>
+                <p class="text-muted mb-0">@Model.Count() cita(s) registrada(s)</p>
+            </div>
+            <a href="@Url.Action("Create", "Cita")" class="btn btn-success btn-lg">
+                <i class="fas fa-plus"></i> Nueva Cita
+            </a>
+        </div>
     </div>
 
-    <table class="table table-striped">
-        <thead class="table-dark">
-            <tr>
-                <th>Id</th>
-                <th>Paciente</th>
-                <th>Médico</th>
-                <th>Fecha</th>
-                <th>Hora</th>
-                <th>Motivo</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var cita in Model)
-            {
-                var paciente = ((IEnumerable<CitasApp.Models.Paciente>)ViewBag.Pacientes)?.FirstOrDefault(p => p.Id == cita.PacienteId);
-                var medico = ((IEnumerable<CitasApp.Models.Medico>)ViewBag.Medicos)?.FirstOrDefault(m => m.Id == cita.MedicoId);
+    @if (Model.Any())
+    {
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-hashtag"></i> Id</th>
+                        <th><i class="fas fa-user-injured"></i> Paciente</th>
+                        <th><i class="fas fa-stethoscope"></i> Médico</th>
+                        <th><i class="fas fa-calendar"></i> Fecha</th>
+                        <th><i class="fas fa-clock"></i> Hora</th>
+                        <th><i class="fas fa-notes-medical"></i> Motivo</th>
+                        <th><i class="fas fa-status"></i> Estado</th>
+                        <th><i class="fas fa-cog"></i> Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cita in Model)
+                    {
+                        var paciente = ((IEnumerable<CitasApp.Models.Paciente>)ViewBag.Pacientes)?.FirstOrDefault(p => p.Id == cita.PacienteId);
+                        var medico = ((IEnumerable<CitasApp.Models.Medico>)ViewBag.Medicos)?.FirstOrDefault(m => m.Id == cita.MedicoId);
 
-                <tr>
-                    <td>@cita.Id</td>
-                    <td>@paciente?.Nombre @paciente?.Apellido</td>
-                    <td>@medico?.Nombre @medico?.Apellido</td>
-                    <td>@cita.Fecha.ToString("dd/MM/yyyy")</td>
-                    <td>@cita.Hora</td>
-                    <td>@cita.Motivo</td>
-                    <td>
-                        <span class="badge @(cita.Estado == "Confirmada" ? "bg-success" : cita.Estado == "Cancelada" ? "bg-danger" : "bg-warning")">
-                            @cita.Estado
-                        </span>
-                    </td>
-                    <td>
-                        <a href="@Url.Action("Edit", "Cita", new { id = cita.Id })" class="btn btn-sm btn-warning">Editar</a>
-                        <form method="post" action="@Url.Action("Delete", "Cita")" style="display:inline;">
-                            <input type="hidden" name="id" value="@cita.Id" />
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Está seguro?')">Eliminar</button>
-                        </form>
-                    </td>
+                        <tr>
+                            <td><strong>#@cita.Id</strong></td>
+                            <td>@paciente?.Nombre @paciente?.Apellido</td>
+                            <td>@medico?.Nombre @medico?.Apellido</td>
+                            <td>@cita.Fecha.ToString("dd/MM/yyyy")</td>
+                            <td><strong>@cita.Hora</strong></td>
+                            <td>@cita.Motivo</td>
+                            <td>
+                                <span class="badge @(cita.Estado == "Confirmada" ? "bg-success" : cita.Estado == "Cancelada" ? "bg-danger" : "bg-warning")">
+                                    <i class="fas @(cita.Estado == "Confirmada" ? "fa-check-circle" : cita.Estado == "Cancelada" ? "fa-times-circle" : "fa-hourglass-half")"></i>
+                                    @cita.Estado
+                                </span>
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit", "Cita", new { id = cita.Id })" class="btn btn-sm btn-warning" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <form method="post" action="@Url.Action("Delete", "Cita")" style="display:inline;">
+                                    <input type="hidden" name="id" value="@cita.Id" />
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Está seguro que desea eliminar esta cita?')" title="Eliminar">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center py-5">
+            <i class="fas fa-inbox fa-3x mb-3" style="color: #667eea;"></i>
+            <h5>No hay citas registradas</h5>
+            <p class="mb-3">¡Comienza agregando tu primera cita!</p>
+            <a href="@Url.Action("Create", "Cita")" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Crear Primera Cita
+            </a>
+        </div>
+    }
+</div>
                 </tr>
             }
         </tbody>

@@ -1,8 +1,125 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "CitasApp - Sistema de Citas Médicas";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="home-dashboard">
+    <section class="app-hero">
+        <div class="hero-copy">
+            <span class="eyebrow">Panel médico</span>
+            <h1>Gestiona tu agenda clínica con claridad</h1>
+            <p>Organiza citas, pacientes y médicos desde un panel simple, rápido y preparado para el trabajo diario.</p>
+            <div class="hero-actions">
+                <a href="/Cita/Create" class="btn btn-success">
+                    <i class="fas fa-plus"></i> Nueva cita
+                </a>
+                <a href="/Cita" class="btn btn-outline-primary">
+                    <i class="fas fa-calendar-check"></i> Ver agenda
+                </a>
+            </div>
+        </div>
+        <div class="hero-summary" aria-label="Resumen de módulos">
+            <div class="summary-item">
+                <i class="fas fa-calendar-day"></i>
+                <span>Citas</span>
+            </div>
+            <div class="summary-item">
+                <i class="fas fa-user-injured"></i>
+                <span>Pacientes</span>
+            </div>
+            <div class="summary-item">
+                <i class="fas fa-user-md"></i>
+                <span>Médicos</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="quick-actions" aria-label="Acciones principales">
+        <article class="action-card">
+            <div class="action-icon appointments">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+            <h2>Mis citas</h2>
+            <p>Consulta y administra las citas registradas.</p>
+            <a href="/Cita" class="btn btn-primary btn-sm">Ver citas</a>
+        </article>
+
+        <article class="action-card">
+            <div class="action-icon patients">
+                <i class="fas fa-user-injured"></i>
+            </div>
+            <h2>Pacientes</h2>
+            <p>Mantén actualizada la información clínica.</p>
+            <a href="/Paciente" class="btn btn-primary btn-sm">Ver pacientes</a>
+        </article>
+
+        <article class="action-card">
+            <div class="action-icon doctors">
+                <i class="fas fa-stethoscope"></i>
+            </div>
+            <h2>Médicos</h2>
+            <p>Gestiona médicos y especialidades disponibles.</p>
+            <a href="/Medico" class="btn btn-primary btn-sm">Ver médicos</a>
+        </article>
+
+        <article class="action-card emphasized">
+            <div class="action-icon new-appointment">
+                <i class="fas fa-plus"></i>
+            </div>
+            <h2>Nueva cita</h2>
+            <p>Agenda una consulta en pocos pasos.</p>
+            <a href="/Cita/Create" class="btn btn-success btn-sm">Crear cita</a>
+        </article>
+    </section>
+
+    <section class="info-grid">
+        <div class="info-panel">
+            <div>
+                <span class="panel-kicker">Agenda</span>
+                <h2>Seguimiento de citas</h2>
+                <p>Revisa estados, horarios y asignaciones sin perder contexto entre pacientes y médicos.</p>
+            </div>
+            <a href="/Cita" class="panel-link">
+                Abrir citas <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="status-panel">
+            <div class="status-row">
+                <span class="status-dot pending"></span>
+                <div>
+                    <strong>Pendiente</strong>
+                    <small>Por confirmar</small>
+                </div>
+            </div>
+            <div class="status-row">
+                <span class="status-dot confirmed"></span>
+                <div>
+                    <strong>Confirmada</strong>
+                    <small>Lista para atender</small>
+                </div>
+            </div>
+            <div class="status-row">
+                <span class="status-dot canceled"></span>
+                <div>
+                    <strong>Cancelada</strong>
+                    <small>Requiere seguimiento</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="trust-strip" aria-label="Beneficios del sistema">
+        <div>
+            <strong>Sistema rápido</strong>
+            <span>Acceso directo a tus datos</span>
+        </div>
+        <div>
+            <strong>Datos protegidos</strong>
+            <span>Información organizada localmente</span>
+        </div>
+        <div>
+            <strong>Flujo claro</strong>
+            <span>Citas, pacientes y médicos conectados</span>
+        </div>
+    </section>
 </div>
