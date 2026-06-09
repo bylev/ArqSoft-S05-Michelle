@@ -1,13 +1,15 @@
-using CitasApp.Interfaces;
-using CitasApp.Repositories;
+﻿using CitasApp.Domain.Interfaces;
+using CitasApp.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddControllers();
 
+// ✅ Estos deben estar ANTES del Build()
+builder.Services.AddScoped<ICitaRepository, JsonCitaRepository>();
 builder.Services.AddScoped<IMedicoRepository, JsonMedicoRepository>();
 builder.Services.AddScoped<IPacienteRepository, JsonPacienteRepository>();
-builder.Services.AddScoped<ICitaRepository, JsonCitaRepository>();
 
 var app = builder.Build();
 
@@ -19,9 +21,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseRouting();
-
 app.UseAuthorization();
-
 app.MapStaticAssets();
 
 app.MapControllerRoute(

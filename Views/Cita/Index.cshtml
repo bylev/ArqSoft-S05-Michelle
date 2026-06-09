@@ -1,4 +1,4 @@
-@model IEnumerable<CitasApp.Models.Cita>
+@model IEnumerable<CitasApp.Domain.Models.Cita>
 
 @{
     ViewData["Title"] = "Citas";
@@ -37,8 +37,8 @@
                 <tbody>
                     @foreach (var cita in Model)
                     {
-                        var paciente = ((IEnumerable<CitasApp.Models.Paciente>)ViewBag.Pacientes)?.FirstOrDefault(p => p.Id == cita.PacienteId);
-                        var medico = ((IEnumerable<CitasApp.Models.Medico>)ViewBag.Medicos)?.FirstOrDefault(m => m.Id == cita.MedicoId);
+                        var paciente = ((IEnumerable<CitasApp.Domain.Models.Paciente>)ViewBag.Pacientes)?.FirstOrDefault(p => p.Id == cita.PacienteId);
+                        var medico = ((IEnumerable<CitasApp.Domain.Models.Medico>)ViewBag.Medicos)?.FirstOrDefault(m => m.Id == cita.MedicoId);
 
                         <tr>
                             <td><strong>#@cita.Id</strong></td>

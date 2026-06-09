@@ -1,4 +1,4 @@
-@model CitasApp.Models.Cita
+@model CitasApp.Domain.Models.Cita
 
 @{
     ViewData["Title"] = "Editar Cita";
@@ -24,7 +24,7 @@
                                 </label>
                                 <select class="form-select" id="pacienteId" name="pacienteId" required>
                                     <option value="">-- Seleccionar paciente --</option>
-                                    @foreach (var paciente in (IEnumerable<CitasApp.Models.Paciente>)ViewBag.Pacientes)
+                                    @foreach (var paciente in (IEnumerable<CitasApp.Domain.Models.Paciente>)ViewBag.Pacientes)
                                     {
                                         <option value="@paciente.Id" selected="@(paciente.Id == Model.PacienteId ? "selected" : null)">@paciente.Nombre @paciente.Apellido</option>
                                     }
@@ -38,7 +38,7 @@
                                 </label>
                                 <select class="form-select" id="medicoId" name="medicoId" required>
                                     <option value="">-- Seleccionar médico --</option>
-                                    @foreach (var medico in (IEnumerable<CitasApp.Models.Medico>)ViewBag.Medicos)
+                                    @foreach (var medico in (IEnumerable<CitasApp.Domain.Models.Medico>)ViewBag.Medicos)
                                     {
                                         <option value="@medico.Id" selected="@(medico.Id == Model.MedicoId ? "selected" : null)">@medico.Nombre @medico.Apellido (@medico.Especialidad)</option>
                                     }
