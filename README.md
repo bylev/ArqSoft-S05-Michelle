@@ -5,44 +5,53 @@ pacientes, médicos y citas desde una interfaz clara y organizada.
 
 ## Objetivo
 
-El objetivo de esta actividad es comprender las vistas arquitectónicas y los trade-offs mediante la creación de la aplicación.
+Realizar una aplicación web para gestionar citas médicas, permitiendo a los usuarios crear, editar y eliminarlas. Además, el objetivo de esta práctica fue cambiar la arquitectura MVC a hexagonal, utilizando archivos JSON para el almacenamiento de datos en lugar de una base de datos tradicional.
 
 ## Tecnologías Usadas
  - ASP.Net Core MVC
  - CSS Personalizado
+ - Arquitectura Hexagonal
  - Archivos JSON como almacenamiento de datos
- - Razor para las vistas
- - Bootstrap para el diseño responsivo
+ - HTML para las vistas.
  
+
+## Arquitectura
+El proyecto está organizado siguiendo la arquitectura hexagonal, donde:
+- **CitasApp.Domain**: Contiene las entidades, interfaces y lógica de negocio. Aquí se definen los modelos de datos y las interfaces para los repositorios.
+- **CitasApp.Infrastructure**: Implementa las interfaces definidas en el dominio utilizando archivos JSON para el almacenamiento de datos. Aquí se encuentran las clases que manejan la lectura y escritura de datos en formato JSON.
+- **CitasApp.Web**: Es la capa de presentación que contiene los controladores, vistas y la configuración de la aplicación. Aquí se manejan las solicitudes HTTP y se renderizan las vistas para el usuario.
+
+
+## Entidades
+- **Cita**: Representa una cita médica, con propiedades como Id, PacienteId, MedicoId y Fecha.
+- **Paciente**: Representa un paciente, con propiedades como Id, Nombre, Edad y NumeroContacto.
+- **Medico**: Representa un médico, con propiedades como Id, Nombre, Especialidad y NumeroLicencia.
+
+
 ## Estructura del proyecto
   ```text
-  CitasApp/
-  ├── Controllers/
-  │   ├── CitaController.cs
-  │   ├── HomeController.cs
-  │   ├── MedicoController.cs
-  │   └── PacienteController.cs
-  ├── Models/
-  │   ├── Cita.cs
-  │   ├── Medico.cs
-  │   └── Paciente.cs
-  ├── Views/
-  │   ├── Cita/
-  │   ├── Home/
-  │   ├── Medico/
-  │   ├── Paciente/
-  │   └── Shared/
-  ├── Repositories/
-  ├── ímages/
-  ├── Interfaces/
-  ├── Data/
-  │   ├── citas.json
-  │   ├── Medicos.json
-  │   └── Pacientes.json
-  └── wwwroot/
-      └── css/
-          └── site.css
- ```
+  CitasApp.sln
+├── CitasApp.Domain/
+│   ├── Interfaces/
+│   │   ├── ICitaRepository.cs
+│   │   ├── IMedicoRepository.cs
+│   │   └── IPacienteRepository.cs
+│   └── Models/
+│       ├── Cita.cs
+│       ├── ErrorViewModel.cs
+│       ├── Medico.cs
+│       └── Paciente.cs
+├── CitasApp.Infrastructure/
+│   └── Repositories/
+│       ├── JsonCitaRepository.cs
+│       ├── JsonMedicoRepository.cs
+│       └── JsonPacienteRepository.cs
+└── CitasApp.Web/
+    ├── Controllers/
+    ├── Views/
+    ├── Data/
+    └── Program.cs 
+  ```
 
  ## Requisitos
 
@@ -83,12 +92,15 @@ El objetivo de esta actividad es comprender las vistas arquitectónicas y los tr
 
   ### Pacientes
   Permite listar, crear, editar y eliminar pacientes. Cada paciente tiene un nombre, edad y número de contacto.
-
+  
   ### Médicos
   Permite listar, crear, editar y eliminar médicos. Cada médico tiene un nombre, especialidad y número de licencia.
 
   ## Almacenamiento de datos
   Actualmente, la aplicación utiliza archivos JSON dentro de la carpeta Data para almacenar la información de citas, pacientes y médicos. Esto facilita la gestión de datos sin necesidad de configurar una base de datos.
 
+  ## Ramas
+  - **main**: Contiene la versión final del proyecto con la arquitectura MVC y el uso de archivos JSON para el almacenamiento de datos.
+  - **hexagonal**: Contiene la versión del proyecto con la arquitectura hexagonal y el uso de archivos JSON para el almacenamiento de datos.
   ## Cláusula de IA
- Este proyecto fue desarrollado utilizando herramientas como los proyectos pasados realizados, el uso de Inteligencia Artificial para hacer el linkeo de los Datos y la Interfaz permitiendo obtener una aplicación fluida y funcional.
+ El cambio realizado de la estructura arquitectónica de MVC fue realizado con las diapositivas y los conocimientos obtenidos durante el curso. No se utilizó Inteligencia Artificial actualmente para nada más que la estructura del proyecto del README.md.
