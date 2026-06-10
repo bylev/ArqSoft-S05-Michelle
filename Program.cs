@@ -3,14 +3,19 @@ using CitasApp.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews();
-builder.Services.AddControllers();
+var dataFolder = Path.Combine(builder.Environment.WebRootPath, "Data");
+Directory.CreateDirectory(dataFolder);
 
-builder.Services.AddScoped<ICitaRepository, JsonCitaRepository>();
-builder.Services.AddScoped<IMedicoRepository, JsonMedicoRepository>();
-// Implementación de un nuevo Port para comprobar la arquitectura hexagonal funciona.
-//builder.Services.AddScoped<IPacienteRepository, MemoriaPacienteRepository>();
-builder.Services.AddScoped<IPacienteRepository, JsonPacienteRepository>();
+// Rutas para CSV
+var csvPacientes = Path.Combine(dataFolder, "pacientes.csv");
+var csvMedicos = Path.Combine(dataFolder, "medicos.csv");
+var csvCitas = Path.Combine(dataFolder, "citas.csv");
+
+builder.Services.AddSingleton<IPacienteRepository>(_ => new CsvPacienteRepository(csvPacientes));
+builder.Services.AddSingleton<IMedicoRepository>(_ => new CsvMedicoRepository(csvMedicos));
+builder.Services.AddSingleton<ICitaRepository>(_ => new CsvCitaRepository(csvCitas));
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -21,13 +26,12 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
-app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
