@@ -6,7 +6,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers();
 
-// ✅ Estos deben estar ANTES del Build()
 builder.Services.AddScoped<ICitaRepository, JsonCitaRepository>();
 builder.Services.AddScoped<IMedicoRepository, JsonMedicoRepository>();
 // Implementación de un nuevo Port para comprobar la arquitectura hexagonal funciona.

@@ -99,6 +99,11 @@ El proyecto está organizado siguiendo la arquitectura hexagonal, donde:
   ## Almacenamiento de datos
   Actualmente, la aplicación utiliza archivos JSON dentro de la carpeta Data para almacenar la información de citas, pacientes y médicos. Esto facilita la gestión de datos sin necesidad de configurar una base de datos.
 
+  ## Nuevo Adaptador
+ Se implementó *MemoriaPacienteRepository* como un nuevo adaptador para el repositorio de pacientes, permitiendo almacenar los datos en memoria en lugar de archivos JSON. Esto es útil para pruebas rápidas o para escenarios donde no se requiere persistencia a largo plazo.
+ A continuación, se muestra el cambio que tuvo la aplicación una vez llamado el adaptador.
+ ![MemoriaPacienteRepository](images/Port.png)
+
   ## Ramas
   - **main**: Contiene la versión final del proyecto con la arquitectura MVC y el uso de archivos JSON para el almacenamiento de datos.
   - **hexagonal**: Contiene la versión del proyecto con la arquitectura hexagonal y el uso de archivos JSON para el almacenamiento de datos.
