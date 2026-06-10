@@ -9,6 +9,8 @@ builder.Services.AddControllers();
 // ✅ Estos deben estar ANTES del Build()
 builder.Services.AddScoped<ICitaRepository, JsonCitaRepository>();
 builder.Services.AddScoped<IMedicoRepository, JsonMedicoRepository>();
+// Implementación de un nuevo Port para comprobar la arquitectura hexagonal funciona.
+//builder.Services.AddScoped<IPacienteRepository, MemoriaPacienteRepository>();
 builder.Services.AddScoped<IPacienteRepository, JsonPacienteRepository>();
 
 var app = builder.Build();
