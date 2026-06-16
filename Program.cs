@@ -1,5 +1,6 @@
 ﻿using CitasApp.Domain.Interfaces;
 using CitasApp.Infrastructure.Repositories;
+using CitasApp.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,10 @@ builder.Services.AddSingleton<ICitaRepository, JsonCitaRepository>();
 //builder.Services.AddSingleton<IPacienteRepository>(_ => new CsvPacienteRepository(csvPacientes));
 //builder.Services.AddSingleton<IMedicoRepository>(_ => new CsvMedicoRepository(csvMedicos));
 //builder.Services.AddSingleton<ICitaRepository>(_ => new CsvCitaRepository(csvCitas));
+
+builder.Services.AddScoped<PacienteService>();
+builder.Services.AddScoped<MedicoService>();
+builder.Services.AddScoped<CitaService>();
 
 builder.Services.AddControllersWithViews();
 

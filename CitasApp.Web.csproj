@@ -4,11 +4,14 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CitasApp.Domain\CitasApp.Domain.csproj" />
     <ProjectReference Include="..\CitasApp.Infrastructure\CitasApp.Infrastructure.csproj" />
+    <ProjectReference Include="CitasApp.Application\CitasApp.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>
