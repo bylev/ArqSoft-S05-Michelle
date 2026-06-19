@@ -5,7 +5,7 @@ pacientes, médicos y citas desde una interfaz clara y organizada.
 
 ## Objetivo
 
-Realizar una aplicación web para gestionar citas médicas, permitiendo a los usuarios crear, editar y eliminarlas. Además, el objetivo de esta práctica fue cambiar la arquitectura MVC a hexagonal, utilizando archivos JSON para el almacenamiento de datos en lugar de una base de datos tradicional.
+Realizar una aplicación web para gestionar citas médicas, permitiendo a los usuarios crear, editar y eliminarlas. Además, el objetivo de esta práctica fue cambiar la arquitectura MVC a hexagonal, utilizando archivos JSON para el almacenamiento de datos en lugar de una base de datos tradicional. E integrar una calculadora con una API REST y su respectivo HTML/CSS con el fin de mostrar los resultados obtenidos por la API.
 
 ## Tecnologías Usadas
  - ASP.Net Core MVC
@@ -13,6 +13,8 @@ Realizar una aplicación web para gestionar citas médicas, permitiendo a los us
  - Arquitectura Hexagonal
  - Archivos JSON como almacenamiento de datos
  - HTML para las vistas.
+ - ASP.Net Core Web API para la API.
+
  
 
 ## Arquitectura
@@ -107,5 +109,15 @@ El proyecto está organizado siguiendo la arquitectura hexagonal, donde:
   ## Ramas
   - **main**: Contiene la versión final del proyecto con la arquitectura MVC y el uso de archivos JSON para el almacenamiento de datos.
   - **hexagonal**: Contiene la versión del proyecto con la arquitectura hexagonal y el uso de archivos JSON para el almacenamiento de datos.
+  - **Api-Calculadora**: Contiene la versión del proyecto con la arquitectura hexagonal y el uso de archivos JSON para el almacenamiento de datos y una API de una calculadora con su respectiva interfaz.
+  -**Api**: Contiene la versión del proyecto con la arquitectura hexagonal y el uso de archivos JSON para el almacenamiento de datos y además su API.
+
+  ## Api-Calculadora Resultados
+  ![Calculadora](images/Division.png)
+  ![Calculadora](images/Multiplicación.png)
+  ![Calculadora](images/Resta.png)
+  ![Calculadora](images/Suma.png)
+  ![Calculadora](images/No_Conexion.png)
+  
   ## Cláusula de IA
  El cambio realizado de la estructura arquitectónica de MVC fue realizado con las diapositivas y los conocimientos obtenidos durante el curso. No se utilizó Inteligencia Artificial actualmente para nada más que la estructura del proyecto del README.md.
