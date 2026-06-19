@@ -1,0 +1,120 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Source Serif 4', Georgia, serif;
+}
+
+body {
+    background: #f0ebe3;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3d3529;
+}
+
+.calculadora {
+    background: #faf6f0;
+    padding: 40px 36px;
+    border-radius: 14px;
+    box-shadow: 0 1px 2px rgba(60, 50, 30, 0.06),
+        0 4px 16px rgba(60, 50, 30, 0.05);
+    width: 400px;
+}
+
+h1 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #2c2416;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+}
+
+.endpoint {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 28px;
+}
+
+
+.endpoint code {
+    font-family: 'SF Mono', 'Consolas', 'Monaco', monospace;
+    font-size: 13px;
+    color: #3d2c126b;
+    background: #ffe9d3b6;
+    padding: 5px 12px;
+    border-radius: 6px;
+    letter-spacing: 0.02em;
+}
+
+.campos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.campos input {
+    padding: 12px 14px;
+    border: 1px solid #ddd5c8;
+    border-radius: 8px;
+    font-size: 15px;
+    color: #2c2416;
+    background: #fdfcfa;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.campos input::placeholder {
+    color: #a89f90;
+}
+
+.campos input:focus {
+    border-color: #b8a990;
+    box-shadow: 0 0 0 3px rgba(184, 169, 144, 0.15);
+}
+
+.botones {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.botones button {
+    padding: 12px;
+    border: 1px solid #ddd5c8;
+    border-radius: 8px;
+    background: #fdfcfa;
+    color: #3d3529;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.botones button:hover {
+    background: #f0ebe3;
+    border-color: #c8bfb0;
+}
+
+.botones button:active {
+    background: #e8e0d4;
+}
+
+.resultado {
+    text-align: center;
+    padding: 16px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #3d3529;
+    border-top: 1px solid #e6ded2;
+}
+
+.resultado.error {
+    color: #9b4d4d;
+}
