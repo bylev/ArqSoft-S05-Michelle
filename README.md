@@ -113,11 +113,11 @@ El proyecto está organizado siguiendo la arquitectura hexagonal, donde:
   -**Api**: Contiene la versión del proyecto con la arquitectura hexagonal y el uso de archivos JSON para el almacenamiento de datos y además su API.
 
   ## Api-Calculadora Resultados
-  ![Calculadora](images/Division.png)
+  ![Calculadora](images/División.png)
   ![Calculadora](images/Multiplicación.png)
   ![Calculadora](images/Resta.png)
   ![Calculadora](images/Suma.png)
-  ![Calculadora](images/No_Conexion.png)
+  ![Calculadora](images/No_Conexión.png)
   
   ## Cláusula de IA
  El cambio realizado de la estructura arquitectónica de MVC fue realizado con las diapositivas y los conocimientos obtenidos durante el curso. No se utilizó Inteligencia Artificial actualmente para nada más que la estructura del proyecto del README.md.
