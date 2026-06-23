@@ -1,4 +1,4 @@
-﻿using CitasApp.Domain.Interfaces;
+using CitasApp.Domain.Interfaces;
 using CitasApp.Infrastructure.Repositories;
 using CitasApp.Application.Services;
 
@@ -7,18 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 var dataFolder = Path.Combine(builder.Environment.ContentRootPath, "Data");
 Directory.CreateDirectory(dataFolder);
 
-//var csvPacientes = Path.Combine(dataFolder, "pacientes.csv");
-//var csvMedicos = Path.Combine(dataFolder, "medicos.csv");
-//var csvCitas = Path.Combine(dataFolder, "citas.csv");
-
-
-builder.Services.AddSingleton<IPacienteRepository, JsonPacienteRepository>();
+builder.Services.AddSingleton<IPacienteRepository>(sp =>
+    new LoggingPacienteRepository(new JsonPacienteRepository()));
 builder.Services.AddSingleton<IMedicoRepository, JsonMedicoRepository>();
 builder.Services.AddSingleton<ICitaRepository, JsonCitaRepository>();
-
-//builder.Services.AddSingleton<IPacienteRepository>(_ => new CsvPacienteRepository(csvPacientes));
-//builder.Services.AddSingleton<IMedicoRepository>(_ => new CsvMedicoRepository(csvMedicos));
-//builder.Services.AddSingleton<ICitaRepository>(_ => new CsvCitaRepository(csvCitas));
 
 builder.Services.AddScoped<PacienteService>();
 builder.Services.AddScoped<MedicoService>();
