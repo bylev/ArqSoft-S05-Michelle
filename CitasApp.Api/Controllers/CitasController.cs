@@ -35,11 +35,11 @@ namespace CitasApp.Api.Controllers
         [HttpPost("confirmar/{citaId}")]
         public IActionResult Confirmar(int citaId)
         {
-            var resultado = _citaService.ConfirmarCita(citaId);
-            if (!resultado)
+            var cita = _citaService.ConfirmarCita(citaId);
+            if (cita == null)
                 return NotFound(new { mensaje = "Cita no encontrada" });
 
-            return Ok(new { mensaje = "Cita confirmada exitosamente", citaId });
+            return Ok(new { mensaje = "Cita confirmada", cita });
         }
     }
 }

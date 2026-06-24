@@ -1,5 +1,6 @@
 using CitasApp.Domain.Interfaces;
 using CitasApp.Infrastructure.Repositories;
+using CitasApp.Infrastructure.Observers;
 using CitasApp.Application.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,10 +14,25 @@ builder.Services.AddScoped<IPacienteRepository>(sp =>
 builder.Services.AddScoped<IMedicoRepository, JsonMedicoRepository>();
 builder.Services.AddScoped<ICitaRepository, JsonCitaRepository>();
 
+// Registrar ObservadoresSystem.IO.FileLoadException
+builder.Services.AddScoped<IObservador, SmsObserver>();
+builder.Services.AddScoped<IObservador, EmailObserver>();
+
 // Registrar Servicios
+builder.Services.AddScoped<CitaService>(sp =>
+{
+    var citaService = new CitaService(
+        sp.GetRequiredService<ICitaRepository>(),
+        sp.GetRequiredService<IPacienteRepository>(),
+        sp.GetRequiredService<IMedicoRepository>()
+    );
+    var observadores = sp.GetServices<IObservador>();
+    foreach (var observador in observadores)
+        citaService.AgregarObservador(observador);
+    return citaService;
+});
 builder.Services.AddScoped<PacienteService>();
 builder.Services.AddScoped<MedicoService>();
-builder.Services.AddScoped<CitaService>();
 
 // Configurar CORS
 builder.Services.AddCors(options =>
