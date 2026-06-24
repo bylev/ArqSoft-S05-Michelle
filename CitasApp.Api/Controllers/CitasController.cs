@@ -31,5 +31,15 @@ namespace CitasApp.Api.Controllers
             var (citas, pacientes, medicos) = _citaService.ObtenerCitasPorPaciente(pacienteId);
             return citas.Count == 0 ? NotFound() : Ok(new { citas, pacientes, medicos });
         }
+
+        [HttpPost("confirmar/{citaId}")]
+        public IActionResult Confirmar(int citaId)
+        {
+            var resultado = _citaService.ConfirmarCita(citaId);
+            if (!resultado)
+                return NotFound(new { mensaje = "Cita no encontrada" });
+
+            return Ok(new { mensaje = "Cita confirmada exitosamente", citaId });
+        }
     }
 }

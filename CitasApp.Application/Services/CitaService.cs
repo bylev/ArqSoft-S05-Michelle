@@ -8,6 +8,7 @@ namespace CitasApp.Application.Services
         private readonly ICitaRepository _citaRepo;
         private readonly IPacienteRepository _pacienteRepo;
         private readonly IMedicoRepository _medicoRepo;
+        private readonly List<IObservador> _observadores = new();
 
         public CitaService(ICitaRepository citaRepo,
                           IPacienteRepository pacienteRepo,
@@ -16,6 +17,17 @@ namespace CitasApp.Application.Services
             _citaRepo = citaRepo;
             _pacienteRepo = pacienteRepo;
             _medicoRepo = medicoRepo;
+        }
+
+        public void AgregarObservador(IObservador observador)
+        {
+            _observadores.Add(observador);
+        }
+
+        private void NotificarObservadores(Cita cita)
+        {
+            foreach (var observador in _observadores)
+                observador.Notificar(cita);
         }
 
         /// <summary>
@@ -80,6 +92,22 @@ namespace CitasApp.Application.Services
         public void EliminarCita(int id)
         {
             _citaRepo.Eliminar(id);
+        }
+
+        /// <summary>
+        /// Confirma una cita por su ID
+        /// </summary>
+        public bool ConfirmarCita(int id)
+        {
+            var cita = _citaRepo.ObtenerPorId(id);
+            if (cita == null || cita.Id == 0)
+                return false;
+
+            cita.Estado = "Confirmado";
+            _citaRepo.Editar(cita);
+            Console.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] Cita {cita.Id} confirmada");
+            NotificarObservadores(cita);
+            return true;
         }
     }
 }
