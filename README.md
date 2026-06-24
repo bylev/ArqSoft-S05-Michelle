@@ -107,5 +107,25 @@ El proyecto está organizado siguiendo la arquitectura hexagonal, donde:
   ## Ramas
   - **main**: Contiene la versión final del proyecto con la arquitectura MVC y el uso de archivos JSON para el almacenamiento de datos.
   - **hexagonal**: Contiene la versión del proyecto con la arquitectura hexagonal y el uso de archivos JSON para el almacenamiento de datos.
+  - **GOF**: Contiene la versión del proyecto con la arquitectura hexagonal y el uso de archivos JSON para el almacenamiento de datos, además de la implementación de patrones **GOF**.
+
+  
+## Endpoints API REST
+- `GET /api/pacientes` — lista de pacientes
+- `GET /api/pacientes/{id}` — detalle de un paciente
+- `GET /api/medicos` — lista de médicos
+- `GET /api/medicos/{id}` — detalle de un médico
+- `GET /api/citas` — agenda completa
+- `GET /api/citas/porpaciente/{pacienteId}` — citas de un paciente
+- `POST /api/citas/confirmar/{citaId}` — confirma una cita y dispara notificaciones
+- 
+
+## Patrones GOF implementados
+
+- **Factory** (`RepositoryFactory`) — selecciona el repositorio según el entorno (Development → JSON, Production → Memoria)
+- **Decorator** (`LoggingPacienteRepository`) — agrega logging con timestamp sin modificar el repositorio original
+- **Observer** (`SmsObserver`, `EmailObserver`) — notifican automáticamente al confirmar una cita sin acoplar CitaService a los canales de notificación
+
+
   ## Cláusula de IA
  El cambio realizado de la estructura arquitectónica de MVC fue realizado con las diapositivas y los conocimientos obtenidos durante el curso. No se utilizó Inteligencia Artificial actualmente para nada más que la estructura del proyecto del README.md.

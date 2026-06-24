@@ -97,17 +97,17 @@ namespace CitasApp.Application.Services
         /// <summary>
         /// Confirma una cita por su ID
         /// </summary>
-        public bool ConfirmarCita(int id)
+        public Cita? ConfirmarCita(int id)
         {
             var cita = _citaRepo.ObtenerPorId(id);
             if (cita == null || cita.Id == 0)
-                return false;
+                return null;
 
             cita.Estado = "Confirmado";
             _citaRepo.Editar(cita);
             Console.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] Cita {cita.Id} confirmada");
             NotificarObservadores(cita);
-            return true;
+            return cita;
         }
     }
 }
