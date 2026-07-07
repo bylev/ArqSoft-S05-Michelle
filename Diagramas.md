@@ -8,9 +8,8 @@ Describe la estructura del sistema mostrando las clases, sus atributos, operacio
 En citas médicas, el diagrama de clases puede incluir clases como `Cita`, `Paciente`, `Medico`, y `Especialidad`, mostrando cómo se relacionan entre sí.
 
 
+```mermaid
 classDiagram
-    direction LR
-
     class Paciente {
         Id
         Nombre
@@ -37,5 +36,6 @@ classDiagram
         NumeroLicencia
     }
 
-    Cita ..> Paciente : PacienteId
-    Cita ..> Medico : MedicoId
+    Cita ..> Paciente
+    Cita ..> Medico
+   ```
