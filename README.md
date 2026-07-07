@@ -118,8 +118,12 @@ El proyecto está organizado siguiendo la arquitectura hexagonal, donde:
 - `GET /api/citas` — agenda completa
 - `GET /api/citas/porpaciente/{pacienteId}` — citas de un paciente
 - `POST /api/citas/confirmar/{citaId}` — confirma una cita y dispara notificaciones
-- 
 
+
+## Diagramas
+
+Diagrama de clases para la versión con arquitectura hexagonal y patrones GOF implementados:
+![Diagrama de clases](./Diagramas.md)
 ## Patrones GOF implementados
 
 - **Factory** (`RepositoryFactory`) — selecciona el repositorio según el entorno (Development → JSON, Production → Memoria)
