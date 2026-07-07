@@ -123,7 +123,7 @@ El proyecto está organizado siguiendo la arquitectura hexagonal, donde:
 ## Diagramas
 
 Diagrama de clases para la versión con arquitectura hexagonal y patrones GOF implementados:
-![Diagrama de clases](./Diagramas.md)
+[Diagrama de clases](./Diagramas.md)
 ## Patrones GOF implementados
 
 - **Factory** (`RepositoryFactory`) — selecciona el repositorio según el entorno (Development → JSON, Production → Memoria)
