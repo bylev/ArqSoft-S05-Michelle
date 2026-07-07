@@ -10,8 +10,9 @@ En citas médicas, el diagrama de clases puede incluir clases como `Cita`, `Paci
 
 ```mermaid
 classDiagram
-    
+    %% Definimos el estilo de color amarillo pastel
     classDef amarilloPastel fill:#fdfd96,stroke:#333,stroke-width:1px;
+
     class Paciente {
         +int Id
         +string Nombre
@@ -41,5 +42,6 @@ classDiagram
     Paciente "1" -- "*" Cita : realiza
     Medico "1" -- "*" Cita : atiende
 
+    %% Aplicamos el estilo a las clases
     class Paciente, Cita, Medico amarilloPastel
    ```
