@@ -11,31 +11,31 @@ En citas médicas, el diagrama de clases puede incluir clases como `Cita`, `Paci
 ```mermaid
 classDiagram
     class Paciente {
-        Id
-        Nombre
-        Apellido
-        Email
-        Telefono
+        +int Id
+        +string Nombre
+        +string Apellido
+        +string Email
+        +string Telefono
     }
 
     class Cita {
-        Id
-        PacienteId
-        MedicoId
-        Fecha
-        Hora
-        Motivo
-        Estado
+        +int Id
+        +int PacienteId
+        +int MedicoId
+        +date Fecha
+        +time Hora
+        +string Motivo
+        +string Estado
     }
 
     class Medico {
-        Id
-        Nombre
-        Apellido
-        Especialidad
-        NumeroLicencia
+        +int Id
+        +string Nombre
+        +string Apellido
+        +string Especialidad
+        +string NumeroLicencia
     }
 
-    Cita ..> Paciente
-    Cita ..> Medico
+    Paciente "1" -- "*" Cita : realiza
+    Medico "1" -- "*" Cita : atiende
    ```
