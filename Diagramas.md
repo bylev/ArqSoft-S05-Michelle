@@ -9,8 +9,9 @@ En citas médicas, el diagrama de clases puede incluir clases como `Cita`, `Paci
 
 
 ```mermaid
-classDef amarilloPastel fill:#fdfd96,stroke:#333,stroke-width:1px;
 classDiagram
+    
+    classDef amarilloPastel fill:#fdfd96,stroke:#333,stroke-width:1px;
     class Paciente {
         +int Id
         +string Nombre
