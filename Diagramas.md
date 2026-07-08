@@ -39,7 +39,7 @@ classDiagram
     Paciente "1" -- "*" Cita : realiza
     Medico "1" -- "*" Cita : atiende
 
-    style Paciente fill:#fdfd96,stroke:#333,stroke-width:1px
-    style Cita fill:#fdfd96,stroke:#333,stroke-width:1px
-    style Medico fill:#fdfd96,stroke:#333,stroke-width:1px
+    style Paciente fill:#dae8fc,stroke:#6c8ebf,stroke-width:2px,color:#000000
+    style Cita fill:#dae8fc,stroke:#6c8ebf,stroke-width:2px,color:#000000
+    style Medico fill:#dae8fc,stroke:#6c8ebf,stroke-width:2px,color:#000000
    ```
