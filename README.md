@@ -1,135 +1,137 @@
 # CitasApp
 
-Es una aplicación web desarrollada con ASP.Net Core MVC para gestionar citas médicas de forma sencilla. Permite administrar
-pacientes, médicos y citas desde una interfaz clara y organizada. 
+Aplicación web para la gestión de citas médicas, desarrollada con **ASP.NET Core Razor Pages** y una arquitectura por capas/hexagonal. El proyecto evolucionó desde almacenamiento en archivos JSON hacia **Entity Framework Core + MySQL local** usando WAMP/phpMyAdmin.
 
 ## Objetivo
 
-Realizar una aplicación web para gestionar citas médicas, permitiendo a los usuarios crear, editar y eliminarlas. Además, el objetivo de esta práctica fue cambiar la arquitectura MVC a hexagonal, utilizando archivos JSON para el almacenamiento de datos en lugar de una base de datos tradicional.
+Gestionar pacientes, médicos y citas médicas desde una interfaz web, con persistencia local en base de datos y una estructura de proyecto separada por responsabilidades.
 
-## Tecnologías Usadas
- - ASP.Net Core MVC
- - CSS Personalizado
- - Arquitectura Hexagonal
- - Archivos JSON como almacenamiento de datos
- - HTML para las vistas.
- 
+## Tecnologías usadas
 
-## Arquitectura
-El proyecto está organizado siguiendo la arquitectura hexagonal, donde:
-- **CitasApp.Domain**: Contiene las entidades, interfaces y lógica de negocio. Aquí se definen los modelos de datos y las interfaces para los repositorios.
-- **CitasApp.Infrastructure**: Implementa las interfaces definidas en el dominio utilizando archivos JSON para el almacenamiento de datos. Aquí se encuentran las clases que manejan la lectura y escritura de datos en formato JSON.
-- **CitasApp.Web**: Es la capa de presentación que contiene los controladores, vistas y la configuración de la aplicación. Aquí se manejan las solicitudes HTTP y se renderizan las vistas para el usuario.
+- ASP.NET Core Razor Pages
+- .NET 10
+- Entity Framework Core
+- MySQL local con WAMP/phpMyAdmin
+- C#
+- HTML, CSS y Bootstrap
+- Arquitectura hexagonal / por capas
 
+## Estructura de la solución
 
-## Entidades
-- **Cita**: Representa una cita médica, con propiedades como Id, PacienteId, MedicoId y Fecha.
-- **Paciente**: Representa un paciente, con propiedades como Id, Nombre, Edad y NumeroContacto.
-- **Medico**: Representa un médico, con propiedades como Id, Nombre, Especialidad y NumeroLicencia.
-
-
-## Estructura del proyecto
-  ```text
-  CitasApp.sln
+```text
+CitasApp
 ├── CitasApp.Domain/
-│   ├── Interfaces/
-│   │   ├── ICitaRepository.cs
-│   │   ├── IMedicoRepository.cs
-│   │   └── IPacienteRepository.cs
-│   └── Models/
-│       ├── Cita.cs
-│       ├── ErrorViewModel.cs
-│       ├── Medico.cs
-│       └── Paciente.cs
+│   ├── Models/
+│   │   ├── Cita.cs
+│   │   ├── Medico.cs
+│   │   ├── Paciente.cs
+│   │   └── ErrorViewModel.cs
+│   └── Interfaces/
+│       ├── ICitaRepository.cs
+│       ├── IMedicoRepository.cs
+│       └── IPacienteRepository.cs
+├── CitasApp.Application/
+│   └── Services/
+│       ├── CitaService.cs
+│       ├── MedicoService.cs
+│       └── PacienteService.cs
 ├── CitasApp.Infrastructure/
-│   └── Repositories/
-│       ├── JsonCitaRepository.cs
-│       ├── JsonMedicoRepository.cs
-│       └── JsonPacienteRepository.cs
-└── CitasApp.Web/
-    ├── Controllers/
-    ├── Views/
-    ├── Data/
-    └── Program.cs 
-  ```
+│   ├── Persistence/
+│   │   └── AppDbContext.cs
+│   ├── Repositories/
+│   │   ├── JsonCitaRepository.cs
+│   │   ├── JsonMedicoRepository.cs
+│   │   ├── JsonPacienteRepository.cs
+│   │   ├── CsvCitaRepository.cs
+│   │   ├── CsvMedicoRepository.cs
+│   │   ├── CsvPacienteRepository.cs
+│   │   ├── LoggingPacienteRepository.cs
+│   │   ├── MemoriaPacienteRepository.cs
+│   │   └── RepositoryFactory.cs
+│   └── Observers/
+│       ├── EmailObserver.cs
+│       └── SmsObserver.cs
+├── CitasApp.Web.csproj
+├── Program.cs
+├── Controllers/
+├── Views/
+├── wwwroot/
+└── Data/
+```
 
- ## Requisitos
+## Capas del proyecto
 
- Antes de ejecutar el proyectio, se debe instalar: 
+### Domain
+Contiene las entidades y las interfaces de repositorio. Aquí viven los contratos del negocio.
 
- - .NET SDK 10 o superior.
- 
- ## Cómo ejecutar
+### Application
+Contiene los servicios de aplicación que coordinan reglas de negocio y usan los repositorios.
 
- 1. Clona o abre el proyecto.
- 2. Entra a la carpeta del proyecto
-     ```sh
-     cd CitasApp
-     ```
- 3. Restaura las dependencias:
-     ```sh
-     dotner restore
-     ```
- 4. Ejecuta la aplicación.
-     ```sh
-     dotnet run 
-     ```
- 5. Abre el navegador en la URL que indique.
- 
- ## Resultado
+### Infrastructure
+Contiene la implementación técnica:
+- `AppDbContext` para EF Core
+- repositorios JSON/CSV/memoria
+- observadores de notificación
 
- ![Inicio](images/inicio.png)
- ![Citas](images/citas.png)
-![Pacientes](images/pacientes.png)
- ![Médicos](images/medicos.png)
+### Web
+Es la capa de presentación. Actualmente el arranque principal está en `Program.cs` y la UI está basada en Razor Pages / MVC según el módulo.
 
- ## Módulos principales
+## Persistencia actual
 
- Muestra un panel principal con accesos rápidos para consultar citas, pacientes, médicos y crear una nueva cita.
+La aplicación usa **MySQL local** como base de datos principal.
 
- ### Citas
-  Permite listar, crear, editar y eliminar citas. Al crear o editar una cita, se selecciona el paciente, el médico y la fecha.
+### Tablas que genera EF Core
+- `pacientes`
+- `medicos`
+- `citas`
+- `__efmigrationshistory` 
 
-  ### Pacientes
-  Permite listar, crear, editar y eliminar pacientes. Cada paciente tiene un nombre, edad y número de contacto.
-  
-  ### Médicos
-  Permite listar, crear, editar y eliminar médicos. Cada médico tiene un nombre, especialidad y número de licencia.
+### Tablas de Identity
+Actualmente **no se necesitan**. Si el `AppDbContext` hereda de `DbContext` normal, no deberían aparecer tablas `aspnet...`.
 
-  ## Almacenamiento de datos
-  Actualmente, la aplicación utiliza archivos JSON dentro de la carpeta Data para almacenar la información de citas, pacientes y médicos. Esto facilita la gestión de datos sin necesidad de configurar una base de datos.
+## Deuda técnica identificada
 
-  ## Nuevo Adaptador
- Se implementó *MemoriaPacienteRepository* como un nuevo adaptador para el repositorio de pacientes, permitiendo almacenar los datos en memoria en lugar de archivos JSON. Esto es útil para pruebas rápidas o para escenarios donde no se requiere persistencia a largo plazo.
- A continuación, se muestra el cambio que tuvo la aplicación una vez llamado el adaptador.
- ![MemoriaPacienteRepository](images/Port.png)
+### 1. Persistencia híbrida
+Todavía existen repositorios JSON y CSV junto con la base de datos. Eso implica doble mantenimiento y confusión sobre cuál fuente de datos es la oficial.
 
-  ## Ramas
-  - **main**: Contiene la versión final del proyecto con la arquitectura MVC y el uso de archivos JSON para el almacenamiento de datos.
-  - **hexagonal**: Contiene la versión del proyecto con la arquitectura hexagonal y el uso de archivos JSON para el almacenamiento de datos.
-  - **GOF**: Contiene la versión del proyecto con la arquitectura hexagonal y el uso de archivos JSON para el almacenamiento de datos, además de la implementación de patrones **GOF**.
+### 2. Configuración local acoplada al entorno
+La aplicación depende de una base de datos local en WAMP/phpMyAdmin. Funciona bien para desarrollo, pero debe revisarse para que la configuración sea portable y compatible con 12-factor.
 
-  
-## Endpoints API REST
-- `GET /api/pacientes` — lista de pacientes
-- `GET /api/pacientes/{id}` — detalle de un paciente
-- `GET /api/medicos` — lista de médicos
-- `GET /api/medicos/{id}` — detalle de un médico
-- `GET /api/citas` — agenda completa
-- `GET /api/citas/porpaciente/{pacienteId}` — citas de un paciente
-- `POST /api/citas/confirmar/{citaId}` — confirma una cita y dispara notificaciones
+### 3. Estructura del startup
+El proyecto raíz compila como aplicación principal y el subproyecto `CitasApp.Api` debe mantenerse aislado para no mezclar top-level statements ni romper el build.
 
+## Migración y comandos útiles
+
+### Crear migración
+```powershell
+dotnet ef migrations add InitialCreate -p ..\CitasApp.Infrastructure\CitasApp.Infrastructure.csproj -s .\CitasApp.Web.csproj
+```
+
+### Aplicar migración
+```powershell
+dotnet ef database update -p ..\CitasApp.Infrastructure\CitasApp.Infrastructure.csproj -s .\CitasApp.Web.csproj
+```
+
+## Requisitos
+
+- .NET SDK 10
+- MySQL local funcionando con WAMP
+- Base de datos creada en phpMyAdmin
+
+## Ejecución
+
+```powershell
+dotnet restore
+dotnet run --project .\CitasApp.Web.csproj
+```
+
+## Imágenes
+
+- `images/inicio.png`
+- `images/citas.png`
+- `images/pacientes.png`
+- `images/medicos.png`
 
 ## Diagramas
 
-Diagrama de clases para la versión con arquitectura hexagonal y patrones GOF implementados:
-[Diagrama de clases](./Diagramas.md)
-## Patrones GOF implementados
-
-- **Factory** (`RepositoryFactory`) — selecciona el repositorio según el entorno (Development → JSON, Production → Memoria)
-- **Decorator** (`LoggingPacienteRepository`) — agrega logging con timestamp sin modificar el repositorio original
-- **Observer** (`SmsObserver`, `EmailObserver`) — notifican automáticamente al confirmar una cita sin acoplar CitaService a los canales de notificación
-
-
-  ## Cláusula de IA
- El cambio realizado de la estructura arquitectónica de MVC fue realizado con las diapositivas y los conocimientos obtenidos durante el curso. No se utilizó Inteligencia Artificial actualmente para nada más que la estructura del proyecto del README.md.
+- [Diagrama de clases](./Diagramas.md)
