@@ -100,6 +100,10 @@ La aplicación depende de una base de datos local en WAMP/phpMyAdmin. Funciona b
 ### 3. Estructura del startup
 El proyecto raíz compila como aplicación principal y el subproyecto `CitasApp.Api` debe mantenerse aislado para no mezclar top-level statements ni romper el build.
 
+## Base de datos
+
+![Base de datos](images/BaseDeDatos_CitasApp.png)
+
 ## Migración y comandos útiles
 
 ### Crear migración
