@@ -9,9 +9,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <ProjectReference Include="..\CitasApp.Domain\CitasApp.Domain.csproj" />
     <ProjectReference Include="..\CitasApp.Infrastructure\CitasApp.Infrastructure.csproj" />
     <ProjectReference Include="CitasApp.Application\CitasApp.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="CitasApp.Api\**\*.cs" />
+    <None Remove="CitasApp.Api\**\*" />
   </ItemGroup>
 
   <ItemGroup>

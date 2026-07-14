@@ -1,4 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<ItemGroup>
+  <Compile Remove="CitasApp.Api\**\*.cs" />
+  <None Remove="CitasApp.Api\**\*" />
+</ItemGroup><Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
