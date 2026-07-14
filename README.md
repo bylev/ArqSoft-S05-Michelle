@@ -100,6 +100,23 @@ La aplicación depende de una base de datos local en WAMP/phpMyAdmin. Funciona b
 ### 3. Estructura del startup
 El proyecto raíz compila como aplicación principal y el subproyecto `CitasApp.Api` debe mantenerse aislado para no mezclar top-level statements ni romper el build.
 
+## Code smells identificados y refactor realizado
+
+### 1. Tight Coupling en `CitaController`
+El controlador depende directamente de varios repositorios y repite la carga de catálogos de pacientes y médicos en varias acciones. Esto aumenta el acoplamiento y dificulta el mantenimiento.
+
+### 2. Long Method en `CitaService.ConfirmarCita`
+El método concentra varias responsabilidades en una sola operación: validar la cita, cambiar el estado, guardar el cambio, registrar el evento y notificar observadores.
+
+### Refactor aplicado
+Se propone y se aplica **Extract Method** en `CitaController` creando el método privado `CargarCatalogos()`, para evitar duplicación y centralizar la carga de datos comunes.
+
+### Pasos seguidos
+1. Identificar las acciones donde se repetía la carga de catálogos.
+2. Crear el método privado `CargarCatalogos()` dentro de `CitaController`.
+3. Reemplazar las líneas repetidas por una sola llamada al método.
+4. Dejar preparado `CitaService.ConfirmarCita` como siguiente candidato para más refactorización.
+
 ## Base de datos
 
 ![Base de datos](images/BaseDeDatos_CitasApp.png)

@@ -19,24 +19,27 @@ namespace CitasApp.Web.Controllers
             _medicoRepo = medicoRepo;
         }
 
-        public IActionResult Index()
+        private void CargarCatologos() // Extract Method
         {
             ViewBag.Pacientes = _pacienteRepo.ObtenerTodos();
             ViewBag.Medicos = _medicoRepo.ObtenerTodos();
+        }
+
+        public IActionResult Index()
+        {
+            CargarCatologos();
             return View(_citaRepo.ObtenerTodos());
         }
 
         public IActionResult PorPaciente(int pacienteId)
         {
-            ViewBag.Pacientes = _pacienteRepo.ObtenerTodos();
-            ViewBag.Medicos = _medicoRepo.ObtenerTodos();
+            CargarCatologos();
             return View(_citaRepo.ObtenerPorPaciente(pacienteId));
         }
 
         public IActionResult Create()
         {
-            ViewBag.Pacientes = _pacienteRepo.ObtenerTodos();
-            ViewBag.Medicos = _medicoRepo.ObtenerTodos();
+            CargarCatologos();
             return View();
         }
 
@@ -49,8 +52,7 @@ namespace CitasApp.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Pacientes = _pacienteRepo.ObtenerTodos();
-            ViewBag.Medicos = _medicoRepo.ObtenerTodos();
+            CargarCatologos();
             return View(cita);
         }
 
@@ -60,8 +62,7 @@ namespace CitasApp.Web.Controllers
             if (cita.Id == 0)
                 return NotFound();
 
-            ViewBag.Pacientes = _pacienteRepo.ObtenerTodos();
-            ViewBag.Medicos = _medicoRepo.ObtenerTodos();
+            CargarCatologos();
             return View(cita);
         }
 
@@ -74,8 +75,7 @@ namespace CitasApp.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Pacientes = _pacienteRepo.ObtenerTodos();
-            ViewBag.Medicos = _medicoRepo.ObtenerTodos();
+            CargarCatologos();
             return View(cita);
         }
 
