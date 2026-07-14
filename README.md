@@ -127,10 +127,10 @@ dotnet run --project .\CitasApp.Web.csproj
 
 ## Imágenes
 
-- [inicio](images/inicio.png)
-- [citas](images/citas.png)
-- [pacientes](images/pacientes.png)
-- [medicos](images/medicos.png)
+- ![inicio](images/inicio.png)
+- ![citas](images/citas.png)
+- ![pacientes](images/pacientes.png)
+- ![medicos](images/medicos.png)
 
 ## Diagramas
 
