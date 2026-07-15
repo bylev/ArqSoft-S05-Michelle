@@ -1,4 +1,5 @@
 using CitasApp.Infrastructure.Persistence;
+using CitasApp.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,11 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
+builder.Services.AddScoped<CitasApp.Domain.Interfaces.ICitaRepository, JsonCitaRepository>();
+builder.Services.AddScoped<CitasApp.Domain.Interfaces.IPacienteRepository, JsonPacienteRepository>();
+builder.Services.AddScoped<CitasApp.Domain.Interfaces.IMedicoRepository, JsonMedicoRepository>();
+
+builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
@@ -25,6 +31,10 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
 

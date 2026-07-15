@@ -30,41 +30,30 @@ namespace CitasApp.Application.Services
                 observador.Notificar(cita);
         }
 
-        /// <summary>
-        /// Obtiene todas las citas junto con los catálogos de pacientes y médicos
-        /// </summary>
+     
         public (List<Cita> citas, List<Paciente> pacientes, List<Medico> medicos) ObtenerTodasLasCitas()
         {
             return (_citaRepo.ObtenerTodos().ToList(), _pacienteRepo.ObtenerTodos().ToList(), _medicoRepo.ObtenerTodos().ToList());
         }
 
-        /// <summary>
-        /// Obtiene citas filtradas por paciente junto con los catálogos
-        /// </summary>
+ 
         public (List<Cita> citas, List<Paciente> pacientes, List<Medico> medicos) ObtenerCitasPorPaciente(int pacienteId)
         {
             return (_citaRepo.ObtenerPorPaciente(pacienteId).ToList(), _pacienteRepo.ObtenerTodos().ToList(), _medicoRepo.ObtenerTodos().ToList());
         }
 
-        /// <summary>
-        /// Obtiene los catálogos de pacientes y médicos para formularios
-        /// </summary>
         public (List<Paciente> pacientes, List<Medico> medicos) ObtenerCatalogos()
         {
             return (_pacienteRepo.ObtenerTodos().ToList(), _medicoRepo.ObtenerTodos().ToList());
         }
 
-        /// <summary>
-        /// Obtiene una cita por ID junto con los catálogos para edición
-        /// </summary>
+
         public (Cita cita, List<Paciente> pacientes, List<Medico> medicos) ObtenerCitaPorId(int id)
         {
             return (_citaRepo.ObtenerPorId(id), _pacienteRepo.ObtenerTodos().ToList(), _medicoRepo.ObtenerTodos().ToList());
         }
 
-        /// <summary>
-        /// Crea una nueva cita con validación básica
-        /// </summary>
+
         public bool CrearCita(Cita cita)
         {
             if (cita == null)
@@ -74,9 +63,6 @@ namespace CitasApp.Application.Services
             return true;
         }
 
-        /// <summary>
-        /// Edita una cita existente con validación
-        /// </summary>
         public bool EditarCita(Cita cita)
         {
             if (cita == null || cita.Id == 0)
@@ -86,28 +72,41 @@ namespace CitasApp.Application.Services
             return true;
         }
 
-        /// <summary>
-        /// Elimina una cita por su ID
-        /// </summary>
+
         public void EliminarCita(int id)
         {
             _citaRepo.Eliminar(id);
         }
 
-        /// <summary>
-        /// Confirma una cita por su ID
-        /// </summary>
-        public Cita? ConfirmarCita(int id)
-        {
-            var cita = _citaRepo.ObtenerPorId(id);
-            if (cita == null || cita.Id == 0)
-                return null;
 
-            cita.Estado = "Confirmado";
-            _citaRepo.Editar(cita);
-            Console.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] Cita {cita.Id} confirmada");
-            NotificarObservadores(cita);
+        public Cita? ConfirmarCita(int id) // Long Method
+        {
+            var cita = ValidarCita(id);
+            if (cita == null) return null;
+            Confirmar(cita);
+            GuardarCita(cita);
+            RegistrarNotificacion(cita); 
             return cita;
         }
+
+        public Cita? ValidarCita(int id)
+        {
+            var cita = _citaRepo.ObtenerPorId(id);
+            return cita == null || cita.Id == 0 ? null : cita;
+        }
+
+        private void Confirmar(Cita cita)
+        {
+            cita.Estado = "Confirmado";
+        }
+
+        private void GuardarCita(Cita cita) 
+        {
+            _citaRepo.Editar(cita);
+        }
+
+        private void RegistrarNotificacion(Cita cita
+            )
+        { Console.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] Cita {cita.Id} confirmada"); }
     }
 }

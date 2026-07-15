@@ -111,6 +111,11 @@ El método concentra varias responsabilidades en una sola operación: validar la
 ### Refactor aplicado
 Se propone y se aplica **Extract Method** en `CitaController` creando el método privado `CargarCatalogos()`, para evitar duplicación y centralizar la carga de datos comunes.
 
+También se aplica **Extract Method** en `CitaService` para reducir el `Long Method` de `ConfirmarCita(int id)`, separando la lógica en métodos más pequeños como `ValidarCita`, `Confirmar`, `GuardarCita` y `RegistrarNotificacion`.
+
+### Resultado del refactor en `CitaService`
+El método principal quedó como orquestador de la operación: primero valida si la cita existe, luego confirma el estado, guarda el cambio y finalmente registra la notificación. Con esto se mejora la legibilidad y se corrige el code smell de método largo.
+
 ### Pasos seguidos
 1. Identificar las acciones donde se repetía la carga de catálogos.
 2. Crear el método privado `CargarCatalogos()` dentro de `CitaController`.
