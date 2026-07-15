@@ -10,9 +10,9 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-builder.Services.AddScoped<CitasApp.Domain.Interfaces.ICitaRepository, JsonCitaRepository>();
-builder.Services.AddScoped<CitasApp.Domain.Interfaces.IPacienteRepository, JsonPacienteRepository>();
-builder.Services.AddScoped<CitasApp.Domain.Interfaces.IMedicoRepository, JsonMedicoRepository>();
+builder.Services.AddScoped<CitasApp.Domain.Interfaces.ICitaRepository, EfCitaRepository>();
+builder.Services.AddScoped<CitasApp.Domain.Interfaces.IPacienteRepository, EfPacienteRepository>();
+builder.Services.AddScoped<CitasApp.Domain.Interfaces.IMedicoRepository, EfMedicoRepository>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
