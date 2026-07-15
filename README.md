@@ -126,6 +126,13 @@ El método principal quedó como orquestador de la operación: primero valida si
 
 ![Base de datos](images/BaseDeDatos_CitasApp.png)
 
+### Resultados de migración y guardado de datos
+Las siguientes capturas muestran la base de datos y las tablas creadas después de aplicar la migración y guardar información desde la aplicación:
+
+- ![BD](images/BD.png)
+- ![BD Médicos](images/BD_Medicos.png)
+- ![BD Pacientes](images/BD_PAcientes.png)
+
 ## Migración y comandos útiles
 
 ### Crear migración
