@@ -22,6 +22,12 @@
   <ItemGroup>
     <Compile Remove="CitasApp.Api\**\*.cs" />
     <None Remove="CitasApp.Api\**\*" />
+    <Compile Remove="CitasApp.Application\**\*.cs" />
+    <None Remove="CitasApp.Application\**\*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="CitasApp.Application.Services" />
   </ItemGroup>
 
   <ItemGroup>
