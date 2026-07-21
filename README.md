@@ -156,7 +156,7 @@ dotnet ef database update -p ..\CitasApp.Infrastructure\CitasApp.Infrastructure.
 ```powershell
 dotnet restore
 dotnet run --project .\CitasApp.Web.csproj
-```
+``` 
 
 ## Imágenes
 
