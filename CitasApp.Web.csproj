@@ -14,8 +14,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <ProjectReference Include="..\CitasApp.Domain\CitasApp.Domain.csproj" />
-    <ProjectReference Include="..\CitasApp.Infrastructure\CitasApp.Infrastructure.csproj" />
+    <ProjectReference Include="CitasApp.Domain\CitasApp.Domain.csproj" />
+    <ProjectReference Include="CitasApp.Infrastructure\CitasApp.Infrastructure.csproj" />
     <ProjectReference Include="CitasApp.Application\CitasApp.Application.csproj" />
   </ItemGroup>
 
@@ -24,6 +24,12 @@
     <None Remove="CitasApp.Api\**\*" />
     <Compile Remove="CitasApp.Application\**\*.cs" />
     <None Remove="CitasApp.Application\**\*" />
+    <Compile Remove="CitasApp.Domain\**\*.cs" />
+    <None Remove="CitasApp.Domain\**\*" />
+    <Compile Remove="CitasApp.Infrastructure\**\*.cs" />
+    <None Remove="CitasApp.Infrastructure\**\*" />
+    <Compile Remove="CitasApp.xUnit\**\*.cs" />
+    <None Remove="CitasApp.xUnit\**\*" />
   </ItemGroup>
 
   <ItemGroup>
